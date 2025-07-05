@@ -49,8 +49,30 @@ function deleteCustomerById(id) {
     return true;
 }
 
+function updateCustomerById(id, updates) {
+    const customer = getCustomerById(id);
+    if (!customer) return null;
+
+    if (updates.email) {
+        const existingByEmail = getCustomerByEmail(updates.email);
+        if (existingByEmail && existingByEmail.id !== id) {
+            const error = new Error(`Email '${updates.email}' is already used by other customer`);
+            error.status = 409;
+            throw error;
+        }
+        customer.email = updates.email;
+    }
+
+    if (updates.name) {
+        customer.name = updates.name;
+    }
+
+    return customer;
+}
+
 module.exports = {
     createCustomer,
     getAllCustomers,
-    deleteCustomerById
+    deleteCustomerById,
+    updateCustomerById
 };

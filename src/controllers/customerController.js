@@ -47,8 +47,32 @@ function deleteCustomer(req, res, next) {
     }
 }
 
+function updateCustomer(req, res, next) {
+    try {
+        const customerId = req.params.id;
+        const { email, name } = req.body;
+
+        const updated = customerService.updateCustomerById(customerId, { name, email });
+
+        if (!updated) {
+            return res.status(404).json({
+                error: true,
+                message: `Customer with ID '${customerId}' not found`
+            });
+        }
+
+        return res.status(200).json({
+            message: `Customer with ID '${customerId}' updated successfully`,
+            data: updated
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     createCustomer,
     getAllCustomers,
-    deleteCustomer
+    deleteCustomer,
+    updateCustomer
 }

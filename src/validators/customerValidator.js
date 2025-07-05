@@ -37,6 +37,40 @@ function validateCustomerInput(data) {
     };
 }
 
+function validateCustomerUpdate({ name, email }) {
+    const errors = [];
+
+    if (!name && !email) {
+        errors.push({
+            field: 'body',
+            message: 'At least one field (name or email) is required to update',
+            statusCode: 400
+        });
+    }
+
+    if (name && typeof name!=='string') {
+        errors.push({
+            field: 'name',
+            message: 'Name must be a string',
+            statusCode: 422
+        });
+    }
+
+    if (email && (typeof email !== 'string' || !validator.isEmail(email))) {
+        errors.push({
+            field: 'email',
+            message: 'A valid email is required',
+            statusCode: 422
+        });
+    }
+
+    return {
+        isValid : errors.length === 0,
+        errors
+    };
+}
+
 module.exports = {
-    validateCustomerInput
+    validateCustomerInput,
+    validateCustomerUpdate
 };
