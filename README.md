@@ -77,7 +77,8 @@ JSON Payload
   "name": "John Doe",
   "email": "john@example.com"
 }
-
+```
+```
 Test using Postman:
 Set method to POST
 
@@ -88,12 +89,16 @@ header: "Content-Type: application/json"
 Body → Raw → JSON
 
 Paste the payload above
+```
 
+```
 Test using cURL
 curl -X POST http://localhost:3000/customers \
   -H "Content-Type: application/json" \
   -d '{"id":"123","name":"John Doe","email":"john@example.com"}'
+```
 
+```
 ## Other endpoints
 PUT /customers/<id> 
 with body:
