@@ -47,6 +47,7 @@ mini-crm-express/
 ├── README.md
 ```
 
+```
 ## ⚙️ Prerequisites
 
 Ensure you have the following installed:
@@ -55,11 +56,13 @@ Ensure you have the following installed:
 - [npm](https://www.npmjs.com/) (comes with Node.js)
 
 > 🔎 Check versions:
-```bash
+bash
 node -v
 npm -v
 
+```
 
+```
 🔗 API Endpoints (Base URL: http://localhost:3000/customers)
 Method	Endpoint	Description
 GET	/	Fetch all customers
@@ -103,8 +106,7 @@ Payload:
 GET /customers
 
 DELETE /customers/<id>
-
-.
+```
 
 💬 Environment Configuration
 .env file is used for environment-specific configs.
