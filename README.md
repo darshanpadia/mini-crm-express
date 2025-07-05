@@ -26,9 +26,10 @@ npm install
 
 # 5. Start development server
 npm run dev
-
-# Folder Structure
 ```
+
+```
+# Folder Structure
 mini-crm-express/
 │
 ├── src/
