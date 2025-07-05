@@ -13,6 +13,20 @@ function createCustomer(req, res, next) {
     }
 }
 
+function getAllCustomers(req, res, next) {
+    try{
+        const customers = customerService.getAllCustomers();
+
+        return res.status(200).json({
+            message: "Customer list fetched successfully",
+            data: customers
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
-    createCustomer
+    createCustomer,
+    getAllCustomers
 }

@@ -18,4 +18,6 @@ router.post('/', (req, res, next) => {
     customerController.createCustomer(req, res, next);
 })
 
+router.get('/', customerController.getAllCustomers);
+
 module.exports = router;

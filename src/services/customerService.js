@@ -36,9 +36,14 @@ function createCustomer({id, name, email}) {
     return newCustomer
 }
 
+function getAllCustomers() {
+    return customers;
+}
+
 module.exports = {
     getCustomerById,
     getCustomerByEmail,
     addCustomer,
-    createCustomer
-}
+    createCustomer,
+    getAllCustomers
+};
