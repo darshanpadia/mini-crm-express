@@ -1,34 +1,27 @@
 const validator = require('validator')
 
+// Create a standard error object for validation failures
+function createError(field, message, statusCode=400) {
+    return { field, message, statusCode }
+}
+
 /**
  * Validate customer input for creation
- * @param {Object} data - The customer object
- * @returns {Object} result - { isValid, errors: [{ field, message, statusCode }] }
+ * Returns error if id, name, or email are missing/invalid
  */
 function validateCustomerInput(data) {
     const errors = [];
 
     if (!data.id || typeof data.id !== 'string') {
-        errors.push({
-            field : "id",
-            message: "ID is required and must be a string",
-            statusCode: 400
-        });
+        errors.push(createError('id', 'ID is required and must be a string'));
     }
 
     if (!data.name || typeof data.name !== 'string') {
-        errors.push({
-            field: "name",
-            message: "Name is required and must be a string"
-        });
+        errors.push(createError('name', 'Name is required and must be a string'));
     }
 
     if (!data.email || typeof data.email !== 'string' || !validator.isEmail(data.email)) {
-        errors.push({
-            field: "email",
-            message: "A valid email is required",
-            statusCode: 422
-        });
+        errors.push(createError('email', 'A valid email is required', 422));
     }
 
     return {
@@ -37,31 +30,23 @@ function validateCustomerInput(data) {
     };
 }
 
+/**
+ * Validate fields for customer update
+ * At least one of name or email must be provided and valid
+ */
 function validateCustomerUpdate({ name, email }) {
     const errors = [];
 
     if (!name && !email) {
-        errors.push({
-            field: 'body',
-            message: 'At least one field (name or email) is required to update',
-            statusCode: 400
-        });
+        errors.push(createError('body', 'At least one field (name or email) is required to update'));
     }
 
     if (name && typeof name!=='string') {
-        errors.push({
-            field: 'name',
-            message: 'Name must be a string',
-            statusCode: 422
-        });
+        errors.push(createError('name', 'Name must be a string', 422));
     }
 
     if (email && (typeof email !== 'string' || !validator.isEmail(email))) {
-        errors.push({
-            field: 'email',
-            message: 'A valid email is required',
-            statusCode: 422
-        });
+        errors.push(createError('email', 'A valid email is required', 422));
     }
 
     return {
