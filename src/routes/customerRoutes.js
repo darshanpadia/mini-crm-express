@@ -20,4 +20,6 @@ router.post('/', (req, res, next) => {
 
 router.get('/', customerController.getAllCustomers);
 
+router.delete('/:id', customerController.deleteCustomer);
+
 module.exports = router;

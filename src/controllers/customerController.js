@@ -26,7 +26,29 @@ function getAllCustomers(req, res, next) {
     }
 }
 
+function deleteCustomer(req, res, next) {
+    try {
+        const customerId = req.params.id;
+        
+        const deleted = customerService.deleteCustomerById(customerId);
+
+        if (!deleted) {
+            return res.status(404).json({
+                error: true,
+                message: `Customer with ID '${customerId}' not found.`
+            });
+        }
+
+        return res.status(200).json({
+            message: `Customer with ID '${customerId}' deleted successfully`
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     createCustomer,
-    getAllCustomers
+    getAllCustomers,
+    deleteCustomer
 }

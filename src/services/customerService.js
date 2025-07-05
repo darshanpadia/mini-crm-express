@@ -6,7 +6,6 @@ function getCustomerById(id) {
 }
 
 function getCustomerByEmail(email) {
-    console.log(email)
     if (email) {
         return customers.find(c => c.email.toLowerCase() === email.toLowerCase());
     }
@@ -17,7 +16,6 @@ function addCustomer(customer) {
 }
 
 function createCustomer({id, name, email}) {
-    console.log(id, name, email)
     const existingById = getCustomerById(id);
     if (existingById) {
         const error = new Error(`Customer with ID '${id}' already exists`);
@@ -40,10 +38,19 @@ function getAllCustomers() {
     return customers;
 }
 
+function deleteCustomerById(id) {
+    const index = customers.findIndex(c => c.id === id);
+
+    if (index === -1) {
+        return false;
+    }
+
+    customers.splice(index,1);
+    return true;
+}
+
 module.exports = {
-    getCustomerById,
-    getCustomerByEmail,
-    addCustomer,
     createCustomer,
-    getAllCustomers
+    getAllCustomers,
+    deleteCustomerById
 };
